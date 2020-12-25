@@ -516,6 +516,7 @@ Welcome to register the company name in this issue: https://github.com/alibaba/a
 ![百度凤巢](static/baidufengchao.png)
 ![喜百年供应链科技](static/xbn.png)
 ![折耳根科技](static/zheergen.png)
+![qdama](static/qdm_logo.png)
 
 ### Derivative Projects
 
@@ -532,6 +533,7 @@ This project exists, thanks to all the people who contributed.
 
 #### Projects
 
+* [bytekit](https://github.com/alibaba/bytekit) Java Bytecode Kit.
 * [greys-anatomy](https://github.com/oldmanpushcart/greys-anatomy): The Arthas code base has derived from Greys, we thank for the excellent work done by Greys.
 * [termd](https://github.com/alibaba/termd): Arthas's terminal implementation is based on termd, an open source library for writing terminal applications in Java.
 * [crash](https://github.com/crashub/crash): Arthas's text based user interface rendering is based on codes extracted from [here](https://github.com/crashub/crash/tree/1.3.2/shell)
