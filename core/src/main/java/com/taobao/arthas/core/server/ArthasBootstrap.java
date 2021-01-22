@@ -104,7 +104,7 @@ public class ArthasBootstrap {
     private SessionManager sessionManager;
     private TunnelClient tunnelClient;
 
-    private File arthasOutputDir;
+    private File outputPath;
 
     private static LoggerContext loggerContext;
     private EventExecutorGroup workerGroup;
@@ -122,15 +122,20 @@ public class ArthasBootstrap {
     private ArthasBootstrap(Instrumentation instrumentation, Map<String, String> args) throws Throwable {
         this.instrumentation = instrumentation;
 
-        String outputPath = System.getProperty("arthas.output.dir", "arthas-output");
-        arthasOutputDir = new File(outputPath);
-        arthasOutputDir.mkdirs();
         initFastjson();
 
         // 1. initSpy()
         initSpy();
         // 2. ArthasEnvironment
         initArthasEnvironment(args);
+
+        String outputPathStr = configure.getOutputPath();
+        if (outputPathStr == null) {
+            outputPathStr = ArthasConstants.ARTHAS_OUTPUT;
+        }
+        outputPath = new File(outputPathStr);
+        outputPath.mkdirs();
+
         // 3. init logger
         loggerContext = LogUtil.initLooger(arthasEnvironment);
 
@@ -168,6 +173,8 @@ public class ArthasBootstrap {
         JSON.DEFAULT_GENERATE_FEATURE |= SerializerFeature.DisableCircularReferenceDetect.getMask();
         // add date format option for  fastjson
         JSON.DEFAULT_GENERATE_FEATURE |= SerializerFeature.WriteDateUseDateFormat.getMask();
+        // ignore getter error #1661
+        JSON.DEFAULT_GENERATE_FEATURE |= SerializerFeature.IgnoreErrorGetter.getMask();
     }
 
     private void initBeans() {
@@ -622,4 +629,9 @@ public class ArthasBootstrap {
     public HttpApiHandler getHttpApiHandler() {
         return httpApiHandler;
     }
+
+    public File getOutputPath() {
+        return outputPath;
+    }
+
 }
